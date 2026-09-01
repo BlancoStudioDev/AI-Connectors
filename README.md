@@ -11,19 +11,9 @@ Every connector is:
 - **self-refreshing** where needed (OAuth refresh tokens, etc.)
 - **documented with a ready-made system prompt snippet** to instruct the AI
 
-```
-┌─────────────┐    system prompt    ┌──────────────────────────────┐
-│  AI agent   │ ──────────────────▶ │  ~/agent-scripts/            │
-│ (TG bot /   │   (skill            │  ├── .env        (600)       │
-│  opencode)  │    descriptions)    │  ├── .venv       (deps)      │
-└──────┬──────┘                     │  ├── mail.py  cal.py  ...    │
-       │  run_command               │  └── data/       (state)     │
-       ▼                            └──────────────┬───────────────┘
-   bash: python script.py args             ┌─────────┴─────────┐
-                                           ▼                   ▼
-                                     IMAP / CalDAV /     Cloud APIs (Strava,
-                                     OAuth2 / REST       Ayla-Hisense, Open-Meteo)
-```
+![AI-Connectors architecture](docs/architecture.svg)
+
+The **agent** (Telegram bot, opencode, any LLM) is instructed via its **system prompt** about the available skill scripts. Every request flows into the matching connector, which talks to the real service and produces a ready-to-show **output**.
 
 ## Included connectors
 
