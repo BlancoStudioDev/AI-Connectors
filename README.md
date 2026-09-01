@@ -15,6 +15,20 @@ Every connector is:
 
 The **agent** (Telegram bot, opencode, any LLM) is instructed via its **system prompt** about the available skill scripts. Every request flows into the matching connector, which talks to the real service and produces a ready-to-show **output**.
 
+```
+┌─────────────┐    system prompt    ┌──────────────────────────────┐
+│  AI agent   │ ──────────────────▶ │  ~/agent-scripts/            │
+│ (TG bot /   │   (skill            │  ├── .env        (600)       │
+│  opencode)  │    descriptions)    │  ├── .venv       (deps)      │
+└──────┬──────┘                     │  ├── mail.py  cal.py  ...    │
+       │  run_command               │  └── data/       (state)     │
+       ▼                            └──────────────┬───────────────┘
+   bash: python script.py args             ┌─────────┴─────────┐
+                                           ▼                   ▼
+                                     IMAP / CalDAV /     Cloud APIs (Strava,
+                                     OAuth2 / REST       Ayla-Hisense, Open-Meteo)
+```
+
 ## Included connectors
 
 | Connector | Script | Service | Credentials |
