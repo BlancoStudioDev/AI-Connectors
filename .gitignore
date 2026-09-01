@@ -1,0 +1,19 @@
+# Credenziali e token — mai in git
+.env
+mail.env
+*.env
+!*.env.example
+*_tokens.json
+*.session
+*.session-journal
+
+# Stato locale degli script
+data/
+*.log
+reminder_state.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
