@@ -80,7 +80,8 @@ AI-Connectors/
     ├── nutri/      nutri.py
     ├── clima/      ac.py
     ├── whatsapp/   wa.py
-    └── telegram/   telegram.py
+    ├── telegram/   telegram.py
+    └── youtube_shorts/   approve.py + workflow/ (pipeline completa)
 ```
 
 ## Adding a new connector
