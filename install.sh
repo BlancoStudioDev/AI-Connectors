@@ -20,6 +20,18 @@ cp "$SRC/clima/ac.py" "$DEST/"
 cp "$SRC/whatsapp/wa.py" "$DEST/"
 cp "$SRC/telegram/telegram.py" "$DEST/"
 
+# YouTube Shorts workflow (pipeline + agent connector)
+if [ -d "$SRC/youtube_shorts" ]; then
+  mkdir -p "$DEST/../youtube-shorts-workflow/data/logs" "$DEST/../youtube-shorts-workflow/assets/music"
+  cp "$SRC/youtube_shorts/approve.py" "$DEST/../youtube-shorts-workflow/"
+  for f in 01_generate_script.py 02_make_video.py 03_upload_youtube.py morning_run.sh \
+           publish_due.sh tick.sh run_workflow.sh send_video.py notify.py; do
+    cp "$SRC/youtube_shorts/workflow/$f" "$DEST/../youtube-shorts-workflow/"
+  done
+  cp "$SRC/youtube_shorts/workflow/config.example.json" "$DEST/../youtube-shorts-workflow/config.json"
+  chmod 600 "$DEST/../youtube-shorts-workflow/config.json"
+fi
+
 if [ ! -d "$DEST/.venv" ]; then
   python3 -m venv "$DEST/.venv"
 fi

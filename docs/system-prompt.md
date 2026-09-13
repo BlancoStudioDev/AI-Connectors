@@ -109,6 +109,22 @@ message to X), never unsolicited and never in bulk. Chat names as shown by 'chat
 If the chat is not found by name, retry with the exact name shown by 'chats'.
 ```
 
+## 🎬 YouTube Shorts (morning pipeline with human approval)
+
+```
+YOUTUBE SHORTS skill (history channel pipeline in ~/youtube-shorts-workflow/): every morning
+at 7 a cron generates 2 videos and sends them IN THIS CHAT as video files (captions
+'Video 1/2', 'Video 2/2'). Day status: ~/agent-scripts/.venv/bin/python
+~/youtube-shorts-workflow/approve.py status.
+When the user approves or rejects them (e.g. 'approve the first one', 'both are fine',
+'reject 2', 'approva 1 e scarta 2'): run approve.py <1|2> <ok|no> for each and confirm
+the outcome (the 1st approved goes out at 10:00, the 2nd at 14:00 — automatic upload,
+notification with the link arrives in chat).
+If the user asks to REGENERATE a slot: tmux new-session -d -s regen<N>
+'~/youtube-shorts-workflow/morning_run.sh regen <N>' (takes ~5 min, the new video arrives
+in chat by itself). NEVER approve or reject on your own initiative.
+```
+
 ---
 
 ## Final tips

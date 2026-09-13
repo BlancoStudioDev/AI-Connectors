@@ -2,7 +2,7 @@
 
 **Ready-to-use connectors between an AI agent and your personal services.**
 
-This collection contains the Python scripts my personal AI agent (a Telegram bot, opencode, etc.) uses to act on the real world: reading email, managing the Apple calendar, logging Strava workouts, checking the weather, tracking nutrition and controlling the Hisense air conditioners at home.
+This collection contains the Python scripts my personal AI agent (a Telegram bot, opencode, etc.) uses to act on the real world: reading email, managing the Apple calendar, logging Strava workouts, checking the weather, tracking nutrition, controlling the Hisense air conditioners at home — and even a full **YouTube Shorts production pipeline** (script → video with TTS + stock imagery + subtitles → Telegram approval → scheduled publishing).
 
 Every connector is:
 
@@ -41,6 +41,7 @@ The **agent** (Telegram bot, opencode, any LLM) is instructed via its **system p
 | ❄️ [AC / Climate](connectors/clima/) | `ac.py` | Hisense HiSmart Life (Ayla EU cloud) | app credentials |
 | 📱 [WhatsApp](connectors/whatsapp/) | `wa.py` | your account via local bridge API | bridge on localhost |
 | 📨 [Telegram](connectors/telegram/) | `telegram.py` | real user account (Telethon) | api id/hash + session |
+| 🎬 [YouTube Shorts](connectors/youtube_shorts/) | `approve.py` + pipeline | YouTube Studio, DeepSeek, Wikimedia, TTS (Edge), Telegram | channel Google account + LLM key |
 
 ## Quickstart
 

@@ -1,0 +1,7 @@
+# Cron del workflow YouTube Shorts (utente che esegue il workflow)
+# Il tick gira ogni 5 minuti e controlla l'ora EUROPE/ROME (a prova di ora legale):
+#   07:00 -> morning_run.sh   (genera 2 video, li manda su Telegram)
+#   09:30 -> promemoria se nessuna approvazione
+#   10:00 -> publish_due.sh 1 (pubblica il 1° approvato)
+#   14:00 -> publish_due.sh 2 (pubblica il 2° approvato)
+*/5 * * * * /home/<utente>/youtube-shorts-workflow/tick.sh >> /home/<utente>/youtube-shorts-workflow/data/logs/tick.log 2>&1

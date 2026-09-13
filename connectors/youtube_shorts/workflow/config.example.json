@@ -1,0 +1,10 @@
+{
+  "invideo_email": "",
+  "invideo_password": "",
+  "youtube_email": "iltuocanale@gmail.com",
+  "youtube_password": "",
+  "deepseek_api_key": "sk-...",
+  "deepseek_base_url": "https://api.deepseek.com/v1",
+  "deepseek_model": "deepseek-chat",
+  "canale_istruzione": "Cultura Antica"
+}
