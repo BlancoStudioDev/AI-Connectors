@@ -41,6 +41,8 @@ The **agent** (Telegram bot, opencode, any LLM) is instructed via its **system p
 | ❄️ [AC / Climate](connectors/clima/) | `ac.py` | Hisense HiSmart Life (Ayla EU cloud) | app credentials |
 | 📱 [WhatsApp](connectors/whatsapp/) | `wa.py` | your account via local bridge API | bridge on localhost |
 | 📨 [Telegram](connectors/telegram/) | `telegram.py` | real user account (Telethon) | api id/hash + session |
+| 📰 [News](connectors/news/) | `news.py`, `news_report.py`, `news_daily.py` | RSS feeds + LLM classification, morning report on Telegram | (optional) LLM API key |
+| 📺 [Will Media](connectors/willmedia/) | `essential.py` | "The Essential" auto-download via RSS + yt-dlp | Telegram bot/session |
 | 🎬 [YouTube Shorts](connectors/youtube_shorts/) | `approve.py` + pipeline | YouTube Studio, DeepSeek, Wikimedia, TTS (Edge), Telegram | channel Google account + LLM key |
 
 ## Quickstart
@@ -81,6 +83,8 @@ AI-Connectors/
     ├── clima/      ac.py
     ├── whatsapp/   wa.py
     ├── telegram/   telegram.py
+    ├── news/       news.py, news_report.py, news_daily.py
+    ├── willmedia/  essential.py
     └── youtube_shorts/   approve.py + workflow/ (pipeline completa)
 ```
 

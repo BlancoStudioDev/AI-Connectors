@@ -19,6 +19,10 @@ cp "$SRC/nutri/nutri.py" "$DEST/"
 cp "$SRC/clima/ac.py" "$DEST/"
 cp "$SRC/whatsapp/wa.py" "$DEST/"
 cp "$SRC/telegram/telegram.py" "$DEST/"
+cp "$SRC/news/news.py" "$DEST/"
+cp "$SRC/news/news_report.py" "$DEST/"
+cp "$SRC/news/news_daily.py" "$DEST/"
+cp "$SRC/willmedia/essential.py" "$DEST/"
 
 # YouTube Shorts workflow (pipeline + agent connector)
 if [ -d "$SRC/youtube_shorts" ]; then
@@ -36,7 +40,7 @@ if [ ! -d "$DEST/.venv" ]; then
   python3 -m venv "$DEST/.venv"
 fi
 "$DEST/.venv/bin/pip" install -q --upgrade pip
-"$DEST/.venv/bin/pip" install -q imap-tools caldav vobject requests telethon
+"$DEST/.venv/bin/pip" install -q imap-tools caldav vobject requests telethon httpx python-dotenv feedparser
 
 touch "$DEST/.env"
 chmod 600 "$DEST/.env"

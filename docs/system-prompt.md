@@ -125,6 +125,30 @@ If the user asks to REGENERATE a slot: tmux new-session -d -s regen<N>
 in chat by itself). NEVER approve or reject on your own initiative.
 ```
 
+## 📰 News (daily report + LLM analysis)
+
+```
+NEWS skill: ~/agent-scripts/.venv/bin/python ~/agent-scripts/news.py <today | ingest
+[--days N|--date D] | brief [--days N] | trend "TERMINE" [--days N] | query "text"
+[--days N] | db>. 'today' fetches today's news (RSS), 'brief' gives the LLM digest
+(world, economy, long-term directions), 'trend' computes the long-term direction for a
+company/topic (Google News RSS), 'query' searches the classified archive.
+There is also an automatic morning report (cron 06:00, news_daily.py) that lands in chat
+as a .md document: if the user asks for 'the morning report', look for it or re-run
+news_daily.py. Requires DEEPSEEK_API_KEY in .env and the News-Evaluator repo at
+~/News-Evaluator (SQLite archive).
+```
+
+## 📺 Will Media "The Essential" (auto-download)
+
+```
+ESSENTIAL skill: ~/agent-scripts/.venv/bin/python ~/agent-scripts/essential.py
+[--force | --status]. A hourly cron detects the latest "The Essential" episode from Will
+Media's YouTube channel (official RSS, no Google API), downloads it (yt-dlp) and sends it
+IN THIS CHAT automatically. If the user asks for today's Essential, says it hasn't arrived
+or wants to see it again: run it with --force (it re-sends).
+```
+
 ---
 
 ## Final tips
