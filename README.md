@@ -33,7 +33,7 @@ The **agent** (Telegram bot, opencode, any LLM) is instructed via its **system p
 
 | Connector | Script | Service | Credentials |
 |---|---|---|---|
-| 📬 [Mail](connectors/mail/) | `mail.py` | IMAP (Gmail, Outlook OAuth) | `mail.env` + OAuth token |
+| 📬 [Mail](connectors/mail/) | `mail.py`, `mail_send.py` | IMAP (Gmail, Outlook OAuth), SMTP sending (Outlook OAuth) | `mail.env` + OAuth token |
 | 📅 [Calendar](connectors/calendar/) | `cal.py` | Apple iCloud (CalDAV) | Apple ID + app password |
 | 🚴 [Strava](connectors/strava/) | `strava.py` | Strava API v3 | OAuth (client id/secret) |
 | 🌤️ [Weather](connectors/meteo/) | `meteo.py` | Open-Meteo (free) | none |
@@ -75,7 +75,7 @@ AI-Connectors/
 ├── docs/
 │   └── system-prompt.md      ← blocks to paste into your agent's system prompt
 └── connectors/
-    ├── mail/       mail.py, msft_login.py
+    ├── mail/       mail.py, mail_send.py, msft_login.py, msft_oauth.py
     ├── calendar/   cal.py
     ├── strava/     strava.py, strava_login.py
     ├── meteo/      meteo.py

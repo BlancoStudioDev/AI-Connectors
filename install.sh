@@ -11,6 +11,8 @@ chmod 700 "$DEST"
 
 cp "$SRC/mail/mail.py" "$DEST/"
 cp "$SRC/mail/msft_login.py" "$DEST/" 2>/dev/null || true
+cp "$SRC/mail/msft_oauth.py" "$DEST/"
+cp "$SRC/mail/mail_send.py" "$DEST/"
 cp "$SRC/calendar/cal.py" "$DEST/"
 cp "$SRC/strava/strava.py" "$DEST/"
 cp "$SRC/strava/strava_login.py" "$DEST/"
@@ -58,6 +60,7 @@ echo "                        TG_API_ID/TG_API_HASH/TG_PHONE, WA_API_URL (option
 echo "  2) $DEST/mail.env  → MAIL_<account>_HOST/USER/PASS for each IMAP account"
 echo "  3) One-shot logins where needed:"
 echo "       $DEST/.venv/bin/python $DEST/msft_login.py          (OAuth mail)"
+echo "       Add --with-send to the Microsoft login to enable Outlook SMTP sending"
 echo "       $DEST/.venv/bin/python $DEST/telegram.py login      (Telegram session)"
 echo "       Strava: open the authorization URL, then strava_login.py <code>"
 echo "  4) Paste the skill block from docs/system-prompt.md into your agent's system prompt"

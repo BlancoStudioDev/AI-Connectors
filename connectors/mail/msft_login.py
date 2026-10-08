@@ -1,25 +1,24 @@
 #!/usr/bin/env python3
-"""One-time OAuth login (device flow) for a Microsoft/Outlook IMAP account.
-Usage: msft_login.py  → prints link + code, waits for authorization, saves tokens.
+"""One-time OAuth login (device flow) for a Microsoft/Outlook account.
+Usage: msft_login.py [--with-send] → authorize IMAP, optionally SMTP, and save tokens.
 """
+import argparse
 import json
-import os
 import sys
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-TOKENS = os.path.join(HERE, 'outlook_tokens.json')
-CLIENT_ID = '9e5f94bc-e8a4-4e73-b8be-63364c29d753'  # well-known public Thunderbird client id
-TENANT = 'common'
-SCOPES = 'https://outlook.office.com/IMAP.AccessAsUser.All offline_access'
-BASE = f'https://login.microsoftonline.com/{TENANT}/oauth2/v2.0'
+from msft_oauth import BASE, CLIENT_ID, SCOPES, SEND_SCOPES, TOKENS, save_json, token_lock, token_record
 
 
-def main():
-    data = urllib.parse.urlencode({'client_id': CLIENT_ID, 'scope': SCOPES}).encode()
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--with-send', action='store_true', help='Request SMTP.Send as well as IMAP access.')
+    args = parser.parse_args(argv)
+    scopes = SEND_SCOPES if args.with_send else SCOPES
+    data = urllib.parse.urlencode({'client_id': CLIENT_ID, 'scope': scopes}).encode()
     r = urllib.request.urlopen(urllib.request.Request(f'{BASE}/devicecode', data=data), timeout=30)
     d = json.load(r)
     print(f"1) Open this link:  {d['verification_uri']}", flush=True)
@@ -54,12 +53,8 @@ def main():
         except Exception as e:
             print(f"Network: {e} — retrying", flush=True)
             continue
-        json.dump({
-            'access_token': n['access_token'],
-            'refresh_token': n['refresh_token'],
-            'expires_at': time.time() + int(n.get('expires_in', 3600)),
-        }, open(TOKENS, 'w'))
-        os.chmod(TOKENS, 0o600)
+        with token_lock():
+            save_json(TOKENS, token_record(n, requested_scopes=scopes))
         print("✅ Login successful! Tokens saved. Now try: mail.py outlook", flush=True)
         return
     print("⌛ Timed out: run msft_login.py again", flush=True)
