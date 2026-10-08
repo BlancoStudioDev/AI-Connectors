@@ -4,6 +4,7 @@ mail.env
 *.env
 !*.env.example
 *_tokens.json
+*_tokens.lock
 *.session
 *.session-journal
 

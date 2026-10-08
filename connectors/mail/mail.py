@@ -8,14 +8,11 @@ Usage:
   mail.py gmail1 --search invoice --body   # also show the body of the first hit
 Accounts: outlook (OAuth), gmail1, gmail2, gmail3 (or 'all') — see ACCOUNTS below.
 """
-import base64
-import json
 import os
 import socket
 import sys
-import time
-import urllib.parse
-import urllib.request
+
+from msft_oauth import get_outlook_token as refresh_outlook_token
 
 socket.setdefaulttimeout(25)
 
@@ -35,36 +32,12 @@ for line in open(os.path.join(HERE, 'mail.env')):
 
 ACCOUNTS = ['outlook', 'gmail1', 'gmail2', 'gmail3']
 
-TOKENS = os.path.join(HERE, 'outlook_tokens.json')
-CLIENT_ID = '9e5f94bc-e8a4-4e73-b8be-63364c29d753'  # well-known public Thunderbird client id
-TENANT = 'common'
-SCOPES = 'https://outlook.office.com/IMAP.AccessAsUser.All offline_access'
-
 
 def get_outlook_token():
     try:
-        t = json.load(open(TOKENS))
-    except Exception:
+        return refresh_outlook_token()
+    except (OSError, RuntimeError, ValueError, KeyError):
         return None
-    if t.get('expires_at', 0) - 120 < time.time():
-        try:
-            data = urllib.parse.urlencode({
-                'client_id': CLIENT_ID,
-                'grant_type': 'refresh_token',
-                'refresh_token': t['refresh_token'],
-                'scope': SCOPES,
-            }).encode()
-            r = urllib.request.urlopen(urllib.request.Request(
-                f'https://login.microsoftonline.com/{TENANT}/oauth2/v2.0/token', data=data), timeout=30)
-            n = json.load(r)
-            t['access_token'] = n['access_token']
-            t['refresh_token'] = n.get('refresh_token', t['refresh_token'])
-            t['expires_at'] = time.time() + int(n.get('expires_in', 3600))
-            json.dump(t, open(TOKENS, 'w'))
-            os.chmod(TOKENS, 0o600)
-        except Exception:
-            return None
-    return t.get('access_token')
 
 
 def cfg(name):
